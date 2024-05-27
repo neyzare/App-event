@@ -1,0 +1,7 @@
+img {
+
+  height: 500px; /* définir la hauteur souhaitée */
+  width: 200px; /* définir la largeur souhaitée */
+  object-fit: cover; /* pour ajuster l'image dans le conteneur */
+  
+}
