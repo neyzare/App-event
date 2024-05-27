@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Hello World
 
 ## Installation
@@ -32,3 +33,6 @@ Analyse the coding rules with :
 ```bash
 npm run lint
 ```
+=======
+# App-event
+>>>>>>> 524b2976374b2f72f3dbe75937446bdb7c98b6e4
