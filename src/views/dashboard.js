@@ -1,7 +1,7 @@
 export default () => (`
 <div class="container">
 <h1 class="mt-5 d-flex justify-content-center">Créer un événement</h1>
-<form id="eventForm">
+<form id="FormId">
   <div class="form-group">
     <label for="eventName">Nom de l'événement :</label>
     <input type="text" class="form-control" id="eventName" name="eventName" required>

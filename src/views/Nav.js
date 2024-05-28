@@ -3,8 +3,8 @@ export default () => (`
   <div class="container-fluid d-flex justify-content-space-evenly">
     <a class="navbar-brand text-primary">Organizer</a>
     <form class="d-flex align-items-center">
-      <span>User</span>
-      <button class="btn btn-outline-success ms-4" id="loginButton" type="submit">Login</button>
+    <span>User</span>
+    <button class="btn btn-outline-success ms-4" id="loginButton" type="submit">Login</button>
     </form>
   </div>
 </nav>
