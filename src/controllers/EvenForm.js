@@ -1,3 +1,5 @@
 const EventForm = class {
-  constructor(formId)
+  constructor(formId) {
+    
+  }
 }
