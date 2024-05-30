@@ -10,7 +10,7 @@ export default () => (`
       <div class="card-body">
         <h5 class="card-title">Mariage</h5>
         <p class="card-text">Créez votre conte de fées avec notre site dédié au mariage : planifiez, partagez, et célébrez chaque moment magique.</p>
-        <a href="#" class="btn btn-primary bouton-dashboard">Organiser</a>
+        <a href="/dashboard" class="btn btn-primary bouton-dashboard">Organiser</a>
       </div>
     </div>
     <div class="card" style="width: 18rem;">
@@ -18,7 +18,7 @@ export default () => (`
       <div class="card-body">
         <h5 class="card-title">Anniversaire</h5>
         <p class="card-text">Célébrez vos moments précieux : planifiez, partagez et immortalisez chaque instant avec notre plateforme.</p>
-        <a href="#" class="btn btn-primary bouton-dashboard">Organiser</a>
+        <a href="/dashboard" class="btn btn-primary bouton-dashboard">Organiser</a>
       </div>
     </div>
     <div class="card" style="width: 18rem;">
@@ -26,7 +26,7 @@ export default () => (`
       <div class="card-body">
         <h5 class="card-title">Seminaire</h5>
         <p class="card-text">Optimisez vos séminaires : planifiez, partagez, et inspirez avec notre plateforme dédiée aux événements professionnels.</p>
-        <a href="#" class="btn btn-primary bouton-dashboard">Organiser</a>
+        <a href="/dashboard" class="btn btn-primary bouton-dashboard">Organiser</a>
       </div>
     </div>
   </div>

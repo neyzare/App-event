@@ -4,7 +4,7 @@ export default () => (`
     <a class="navbar-brand text-primary">Organizer</a>
     <form class="d-flex align-items-center">
     <span>User</span>
-    <button class="btn btn-outline-success ms-4" id="loginButton" type="submit">Login</button>
+    <button  href="/login" class="btn btn-outline-success ms-4" id="loginButton" type="submit">Login</button>
     </form>
   </div>
 </nav>

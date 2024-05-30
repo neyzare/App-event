@@ -14,7 +14,7 @@ class LoginController {
   }
 
   run() {
-    this.render();
+    this.el.innerHTML = this.render();
   }
 }
 

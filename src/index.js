@@ -1,7 +1,7 @@
 import Router from './Router';
 import Organizer from './controllers/Organizer';
-import createLoginPage from './views/login';
-import createDashboardPage from './views/dashboard';
+import LoginController from './controllers/LoginController';
+import DashboardController from './controllers/DashboardController';
 
 const routes = [
   {
@@ -10,15 +10,11 @@ const routes = [
   },
   {
     url: '/login',
-    controller: () => {
-      document.getElementById('root').innerHTML = createLoginPage();
-    }
+    controller: LoginController
   },
   {
     url: '/dashboard',
-    controller: () => {
-      createDashboardPage();
-    }
+    controller: DashboardController
   }
 ];
 
