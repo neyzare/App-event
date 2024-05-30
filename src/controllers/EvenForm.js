@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default class EventForm {
+const EventForm =  class {
   constructor(formId) {
     this.form = document.querySelector(formId);
     if (this.form) {
@@ -27,6 +27,8 @@ export default class EventForm {
 
       if (response.status === 201) {  // Changer le statut en fonction de votre API (201 pour création)
         alert('Événement ajouté avec succès.');
+        // Réinitialiser le formulaire après l'envoi réussi
+        this.form.reset();
       } else {
         alert(`Erreur: ${response.data.message}`);
       }
@@ -36,7 +38,10 @@ export default class EventForm {
     }
   }
 
-  async postEvent(eventData) {
-    return axios.post('http://localhost/event', eventData);  // Assurez-vous que l'URL est correcte
+  postEvent(eventData) {
+    // Modifier l'URL en fonction de votre API
+    return axios.post('http://localhost/event', eventData);
   }
 }
+
+export default EventForm;
