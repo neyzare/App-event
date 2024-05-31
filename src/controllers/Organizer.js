@@ -8,13 +8,11 @@ const Organizer = class {
     this.run();
   }
 
-  
-
   render() {
     return `
       ${viewNav()}
       ${carroussel()}
-      ${card()} 
+      ${card()}
     `;
   }
 

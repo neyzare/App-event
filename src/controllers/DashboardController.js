@@ -1,6 +1,6 @@
-import dashboard from "../views/dashboard";
+import dashboard from '../views/dashboard';
 
-const  DashboardController = class {
+const DashboardController = class {
   constructor(params) {
     this.el = document.querySelector('#root');
     this.params = params;
@@ -16,6 +16,6 @@ const  DashboardController = class {
   run() {
     this.el.innerHTML = this.render();
   }
-}
+};
 
 export default DashboardController;

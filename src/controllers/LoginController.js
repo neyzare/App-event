@@ -1,4 +1,4 @@
-import login from "../views/login";
+import login from '../views/login';
 
 class LoginController {
   constructor(params) {
@@ -9,7 +9,7 @@ class LoginController {
 
   render() {
     return `
-     ${login()}
+      ${login()}
     `;
   }
 

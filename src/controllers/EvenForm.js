@@ -1,18 +1,22 @@
 import axios from 'axios';
 
-const EventForm =  class {
-  constructor(formId) {
-    this.form = document.querySelector(formId);
+class EventForm {
+  constructor() {
+    this.form = document.querySelector('#eventForm');
     if (this.form) {
+      console.log('Form found, adding submit event listener.');
       this.addSubmitEvent();
+    } else {
+      console.error('Form not found.');
     }
   }
 
   addSubmitEvent() {
-    this.form.addEventListener('submit', (e) => this.handleSubmit(e));
+    this.form.addEventListener('submit', this.handleSubmit.bind(this));
   }
 
   async handleSubmit(event) {
+    console.log('hello');
     event.preventDefault();
 
     const formData = new FormData(this.form);
@@ -22,12 +26,15 @@ const EventForm =  class {
       eventData[key] = value;
     });
 
+    // Ajout de l'id_organisateur et du timestamp
+    eventData.organisateur_id = document.getElementById('organisateurId').value;
+    eventData.date_creation = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
     try {
       const response = await this.postEvent(eventData);
 
-      if (response.status === 201) {  // Changer le statut en fonction de votre API (201 pour création)
+      if (response.status === 201) {
         alert('Événement ajouté avec succès.');
-        // Réinitialiser le formulaire après l'envoi réussi
         this.form.reset();
       } else {
         alert(`Erreur: ${response.data.message}`);
@@ -38,8 +45,7 @@ const EventForm =  class {
     }
   }
 
-  postEvent(eventData) {
-    // Modifier l'URL en fonction de votre API
+  async postEvent(eventData) {
     return axios.post('http://localhost/event', eventData);
   }
 }
