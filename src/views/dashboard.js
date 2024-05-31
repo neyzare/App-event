@@ -1,4 +1,4 @@
-import EventForm from '../controllers/EvenForm';
+import DashboardController from "../controllers/DashboardController";
 
 export default () => (`
 <div class="container">
@@ -49,7 +49,7 @@ export default () => (`
 </div>
 `);
 
-// Assurez-vous que le code suivant est exécuté après que le document est complètement chargé
+
 document.addEventListener('DOMContentLoaded', () => {
-  new EventForm(); // Utilisation de la classe EventForm pour initialiser le formulaire
+  new DashboardController();
 });
