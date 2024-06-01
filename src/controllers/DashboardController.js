@@ -1,11 +1,37 @@
-import dashboard from '../views/dashboard';
 import axios from 'axios';
+import dashboard from '../views/dashboard';
 
-class DashboardController {
+const DashboardController = class {
   constructor(params) {
     this.el = document.querySelector('#root');
     this.params = params;
     this.run();
+  }
+
+  async handleSubmit(event) {
+    event.preventDefault();
+
+    const formData = new FormData(event.target);
+    const eventData = {};
+    formData.forEach((value, key) => {
+      eventData[key] = value;
+    });
+
+    eventData.organisateurId = document.getElementById('organisateurId').value;
+    eventData.dateCreation = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+    try {
+      const response = await this.postEvent(eventData);
+      if (response.status === 201) {
+        event.target.reset();
+      }
+    } catch (error) {
+      console.error('Erreur:', error);
+    }
+  }
+
+  async postEvent(eventData) {
+    return axios.post('http://localhost/event', eventData);
   }
 
   render() {
@@ -16,46 +42,14 @@ class DashboardController {
 
   run() {
     this.el.innerHTML = this.render();
-    new EventForm();
+    this.initializeEventForm();
   }
-}
 
-class EventForm {
-  constructor() {
-    this.form = document.querySelector('#eventForm');
-    if (this.form) {
-      this.addSubmitEvent();
+  initializeEventForm() {
+    const form = document.querySelector('#eventForm');
+    if (form) {
+      form.addEventListener('submit', this.handleSubmit.bind(this));
     }
-  }
-
-  addSubmitEvent() {
-    this.form.addEventListener('submit', this.handleSubmit.bind(this));
-  }
-
-  async handleSubmit(event) {
-    event.preventDefault();
-
-    const formData = new FormData(this.form);
-    const eventData = {};
-    formData.forEach((value, key) => {
-      eventData[key] = value;
-    });
-
-    eventData.organisateur_id = document.getElementById('organisateurId').value;
-    eventData.date_creation = new Date().toISOString().slice(0, 19).replace('T', ' ');
-
-    try {
-      const response = await this.postEvent(eventData);
-      if (response.status === 201) {
-        this.form.reset();
-      }
-    } catch (error) {
-      console.error('Erreur:', error);
-    }
-  }
-
-  async postEvent(eventData) {
-    return axios.post('http://localhost/event', eventData);
   }
 }
 

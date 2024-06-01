@@ -1,5 +1,3 @@
-import DashboardController from "../controllers/DashboardController";
-
 export default () => (`
 <div class="container">
   <h1 class="mt-5 d-flex justify-content-center">Créer un événement</h1>
@@ -48,8 +46,3 @@ export default () => (`
   </form>
 </div>
 `);
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  new DashboardController();
-});

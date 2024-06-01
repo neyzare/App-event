@@ -6,49 +6,54 @@ export default () => (`
       <!-- Première moitié de la page -->
       <div class="col-md-6">
         <div class="form-container p-4">
-          <h2 class="text-center mb-4">Connexion</h2>
-          <form>
+          <h2 class="text-center">Connexion</h2>
+          <form id="loginForm">
             <div class="form-group">
-              <label for="email">email :</label>
-              <input type="email" class="form-control" id="email" placeholder="Entrez votre email">
+              <label for="loginEmail">Email :</label>
+              <input type="email" class="form-control" id="loginEmail" placeholder="Entrez votre email">
             </div>
             <div class="form-group">
-              <label for="password">Mot de passe :</label>
-              <input type="password" class="form-control" id="password" placeholder="Entrez votre mot de passe">
+              <label for="loginPassword">Mot de passe :</label>
+              <input type="password" class="form-control" id="loginPassword" placeholder="Entrez votre mot de passe">
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+            <button type="submit" class="btn btn-primary btn-block mt-2">Se connecter</button>
           </form>
         </div>
       </div>
       <!-- Deuxième moitié de la page -->
       <div class="col-md-6">
         <div class="form-container p-4">
-          <h2 class="text-center mb-4">Inscription</h2>
-          <form>
+          <h2 class="text-center">Inscription</h2>
+          <form id="registerForm">
             <div class="form-group">
-              <label for="name">Nom :</label>
-              <input type="text" class="form-control" id="newUsername" placeholder="Entrez votre nom">
+              <label for="registerName">Nom :</label>
+              <input type="text" class="form-control" id="registerName" placeholder="Entrez votre nom">
             </div>
             <div class="form-group">
-              <label for="prenom">Prenom :</label>
-              <input type="text" class="form-control" id="prenom" placeholder="Entrez votre prenom">
+              <label for="registerPrenom">Prénom :</label>
+              <input type="text" class="form-control" id="registerPrenom" placeholder="Entrez votre prénom">
             </div>
             <div class="form-group">
-              <label for="email">Email :</label>
-              <input type="email" class="form-control" id="email" placeholder="Entrez votre email">
+              <label for="registerEmail">Email :</label>
+              <input type="email" class="form-control" id="registerEmail" placeholder="Entrez votre email">
             </div>
             <div class="form-group">
-              <label for="newPassword">Nouveau Mot de passe :</label>
-              <input type="password" class="form-control" id="newPassword" placeholder="Entrez un nouveau mot de passe">
-            </div><div class="form-group">
-            <label for="newUsername">Role :</label>
-            <input type="radio" id="contactChoice1" name="contact" value="Admin" />
-            <label for="role">admin</label>
-        
-            <input type="radio" id="contactChoice2" name="contact" value="telephone" />
-            <label for="role">Invite</label>
-          </div>
-            <button type="submit" class="btn btn-primary btn-block">S'inscrire</button>
+              <label for="registerPassword">Nouveau Mot de passe :</label>
+              <input type="password" class="form-control" id="registerPassword" placeholder="Entrez un nouveau mot de passe">
+            </div>
+            <div class="form-group">
+              <label for="registerRole">Rôle :</label>
+              <div>
+                <input type="radio" id="roleAdmin" name="role" value="Admin">
+                <label for="roleAdmin">Admin</label>
+              </div>
+              <div>
+                <input type="radio" id="roleInvite" name="role" value="Invite">
+                <label for="roleInvite">Invité</label>
+              </div>
+              <input type="hidden" id="userId" name="organisateur_id" value="1">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block mt-2">S'inscrire</button>
           </form>
         </div>
       </div>

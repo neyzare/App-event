@@ -1,7 +1,7 @@
 import Router from './Router';
 import Organizer from './controllers/Organizer';
-import LoginController from './controllers/LoginController';
 import DashboardController from './controllers/DashboardController';
+import LoginController from './controllers/LoginController';
 
 const routes = [
   {
