@@ -20,19 +20,14 @@ const DashboardController = class {
     eventData.organisateur_id = document.getElementById('organisateurId').value;
     eventData.date_creation = new Date().toISOString().slice(0, 10);
 
-    console.log('Data to be sent:', eventData);
-
     try {
       const response = await this.postEvent(eventData);
       console.log('Response:', response);
       if (response.status === 201) {
         event.target.reset();
-        console.log('Event created successfully');
-      } else {
-        console.error('Failed to create event:', response.data);
       }
     } catch (error) {
-      console.error('Erreur:', error.response ? error.response.data : error.message);
+      alert('Erreur:', error.response ? error.response.data : error.message);
     }
   }
 
@@ -59,8 +54,6 @@ const DashboardController = class {
     const form = document.querySelector('#eventForm');
     if (form) {
       form.addEventListener('submit', this.handleSubmit.bind(this));
-    } else {
-      console.error('Form not found');
     }
   }
 };
