@@ -1,0 +1,4 @@
+
+> env-webpack-vanilla@1.0.0 start
+> npx webpack-dev-server --mode development
+

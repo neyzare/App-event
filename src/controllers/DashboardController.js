@@ -18,16 +18,15 @@ const DashboardController = class {
     });
 
     eventData.organisateur_id = document.getElementById('organisateurId').value;
-    eventData.date_creation = new Date().toISOString().slice(0, 10);
 
     try {
       const response = await this.postEvent(eventData);
-      console.log('Response:', response);
       if (response.status === 201) {
         event.target.reset();
+        this.showMessage('Événement créé avec succès', 'success');
       }
     } catch (error) {
-      alert('Erreur:', error.response ? error.response.data : error.message);
+      this.showMessage(`Erreur : ${error.response ? error.response.data : error.message}`, 'error');
     }
   }
 
@@ -55,6 +54,16 @@ const DashboardController = class {
     if (form) {
       form.addEventListener('submit', this.handleSubmit.bind(this));
     }
+  }
+
+  showMessage(message, type) {
+    const messageContainer = document.createElement('div');
+    messageContainer.className = `message ${type}`;
+    messageContainer.textContent = message;
+    this.el.appendChild(messageContainer);
+    setTimeout(() => {
+      messageContainer.remove();
+    }, 3000);
   }
 };
 
