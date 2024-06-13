@@ -17,13 +17,20 @@ const DashboardController = class {
       eventData[key] = value;
     });
 
-    eventData.organisateur_id = document.getElementById('organisateurId').value;
+    const organisateurId = localStorage.getItem('user_id');
+    if (!organisateurId) {
+      this.showMessage('Vous devez être connecté pour créer un événement.', 'error');
+      return;
+    }
+
+    eventData.organisateur_id = organisateurId;
 
     try {
       const response = await this.postEvent(eventData);
       if (response.status === 201) {
         event.target.reset();
         this.showMessage('Événement créé avec succès', 'success');
+        this.fetchUserEvents(); // Mise à jour des événements affichés après la création
       }
     } catch (error) {
       this.showMessage(`Erreur : ${error.response ? error.response.data : error.message}`, 'error');
@@ -38,6 +45,37 @@ const DashboardController = class {
     });
   }
 
+  async fetchUserEvents() {
+    const userId = localStorage.getItem('user_id');
+
+    try {
+      const response = await axios.get(`http://localhost/user-events/${userId}`);
+      if (response.status === 200) {
+        this.renderUserEvents(response.data.created_events);
+      } else {
+        this.showMessage(`Erreur de récupération des événements : ${response.data.message}`, 'error');
+      }
+    } catch (error) {
+      this.showMessage(`Erreur de récupération des événements : ${error.message}`, 'error');
+    }
+  }
+
+  renderUserEvents(events) {
+    const eventList = document.querySelector('#eventList');
+    if (!events.length) {
+      eventList.innerHTML = '<p>Aucun événement créé.</p>';
+      return;
+    }
+
+    eventList.innerHTML = events.map((event) => `
+      <div class="event">
+        <h3>${event.nom}</h3>
+        <p>${event.description}</p>
+        <p>${event.date_debut} - ${event.date_fin}</p>
+      </div>
+    `).join('');
+  }
+
   render() {
     return `
       ${dashboard()}
@@ -47,6 +85,7 @@ const DashboardController = class {
   run() {
     this.el.innerHTML = this.render();
     this.initializeEventForm();
+    this.fetchUserEvents(); // Récupérer les événements créés par l'utilisateur lors du chargement
   }
 
   initializeEventForm() {

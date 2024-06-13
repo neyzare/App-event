@@ -5,7 +5,6 @@ const LoginController = class {
   constructor(params) {
     this.el = document.querySelector('#root');
     this.params = params;
-    this.isLoggedIn = false;
     this.run();
   }
 
@@ -17,15 +16,13 @@ const LoginController = class {
       email: formData.get('email'),
       mot_de_passe: formData.get('mot_de_passe')
     };
-    console.log(loginData);
 
     try {
       const response = await this.postLogin(loginData);
-      if (response.data.code === '200') { // Vérifiez le code de réponse dans le payload
+      if (response.status === 200) {
         this.showMessage('Connexion réussie', 'success');
-        // Mettre à jour l'état de connexion
-        this.isLoggedIn = true;
-        // Rediriger vers la page principale
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('user_id', response.data.user.id); // Save user_id in localStorage
         window.location.href = '/';
       } else {
         this.showMessage(`Erreur de connexion : ${response.data.message}`, 'error');
@@ -50,7 +47,7 @@ const LoginController = class {
 
     try {
       const response = await this.postRegister(registerData);
-      if (response.data.code === '200') {
+      if (response.status === 200) {
         event.target.reset();
         this.showMessage('Inscription réussie', 'success');
       }
@@ -59,17 +56,25 @@ const LoginController = class {
     }
   }
 
-  initializeLoginForm() {
+  initializeForms() {
     const loginForm = document.querySelector('#loginForm');
     if (loginForm) {
       loginForm.addEventListener('submit', this.handleLogin.bind(this));
     }
-  }
 
-  initializeRegisterForm() {
     const registerForm = document.querySelector('#registerForm');
     if (registerForm) {
       registerForm.addEventListener('submit', this.handleRegister.bind(this));
+    }
+
+    const loginButton = document.querySelector('#loginButton');
+    if (loginButton) {
+      loginButton.addEventListener('click', () => { window.location.href = '/login'; });
+    }
+
+    const logoutButton = document.querySelector('#logoutButton');
+    if (logoutButton) {
+      logoutButton.addEventListener('click', this.handleLogout.bind(this));
     }
   }
 
@@ -89,6 +94,14 @@ const LoginController = class {
     });
   }
 
+  handleLogout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('user_id');
+    window.location.href = '/login';
+    this.showMessage('Déconnexion réussie', 'success');
+    this.render();
+  }
+
   showMessage(message, type) {
     const messageContainer = document.createElement('div');
     messageContainer.className = `message ${type}`;
@@ -105,8 +118,7 @@ const LoginController = class {
 
   run() {
     this.el.innerHTML = this.render();
-    this.initializeLoginForm();
-    this.initializeRegisterForm();
+    this.initializeForms();
   }
 };
 
