@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie'; // Import js-cookie
 import login from '../views/login';
 
 const LoginController = class {
@@ -21,8 +22,9 @@ const LoginController = class {
       const response = await this.postLogin(loginData);
       if (response.status === 200) {
         this.showMessage('Connexion réussie', 'success');
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('user_id', response.data.user.id); // Save user_id in localStorage
+        Cookies.set('isLoggedIn', 'true', { expires: 7 });
+        Cookies.set('session_id', response.data.session_id);
+        console.log(response.data.id);
         window.location.href = '/';
       } else {
         this.showMessage(`Erreur de connexion : ${response.data.message}`, 'error');
@@ -79,7 +81,7 @@ const LoginController = class {
   }
 
   async postLogin(loginData) {
-    return axios.post('http://localhost/verifs', loginData, {
+    return axios.post('http://127.0.0.1:80/verifs', loginData, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -95,8 +97,8 @@ const LoginController = class {
   }
 
   handleLogout() {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('user_id');
+    Cookies.remove('isLoggedIn');
+    Cookies.remove('user_id');
     window.location.href = '/login';
     this.showMessage('Déconnexion réussie', 'success');
     this.render();

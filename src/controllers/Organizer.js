@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import viewNav from '../views/Nav';
 import carroussel from '../views/carroussel';
 import card from '../views/card';
@@ -21,11 +22,10 @@ const Organizer = class {
   }
 
   handleLogout() {
-    localStorage.removeItem('isLoggedIn');
-    localStorage.removeItem('userId');
-    window.location.href = '/login';
+    Cookies.remove('isLoggedIn'); // Supprimer le cookie isLoggedIn
+    Cookies.remove('user_id'); // Supprimer le cookie user_id
+    window.location.href = '/login'; // Rediriger vers la page de connexion après déconnexion
     this.showMessage('Déconnexion réussie', 'success');
-    this.render();
   }
 
   showMessage(message, type) {
@@ -39,7 +39,7 @@ const Organizer = class {
   }
 
   render() {
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const isLoggedIn = Cookies.get('isLoggedIn') === 'true';
     return `
       ${viewNav(isLoggedIn)}
       ${carroussel()}

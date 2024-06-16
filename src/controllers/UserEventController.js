@@ -1,33 +1,45 @@
 import axios from 'axios';
+import Cookies from 'js-cookie'; // Import js-cookie
 
-const UserEvents = async () => {
-  const userId = localStorage.getItem('userId');
-  let events = [];
-
-  try {
-    const response = await axios.get(`http://localhost/user-events?user_id=${userId}`);
-    if (response.status === 200) {
-      events = response.data;
-    }
-  } catch (error) {
-    console.error('Error fetching user events:', error);
+const UserEventController = class {
+  constructor() {
+    this.el = document.querySelector('#events');
+    this.loadUserEvents();
   }
 
-  return `
-    <div>
-      <h1>My Events</h1>
-      <ul>
-        ${events.map((event) => `
-          <li>
-            <h2>${event.title}</h2>
-            <p>${event.description}</p>
-            <p>${event.date}</p>
-            <p>${event.location}</p>
-          </li>
-        `).join('')}
-      </ul>
-    </div>
-  `;
+  async loadUserEvents() {
+    const userId = Cookies.get('session_id');
+    if (!userId) {
+      console.error('User ID not found in cookies');
+      return;
+    }
+
+    try {
+      const response = await axios.get(`http://localhost/user-events/${userId}`, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.status === 200) {
+        this.renderEvents(response.data);
+      } else {
+        console.error('Failed to load user events:', response.data.message);
+      }
+    } catch (error) {
+      console.error('Error loading user events:', error.message);
+    }
+  }
+
+  renderEvents(events) {
+    this.el.innerHTML = events.map((event) => `
+      <div class="event">
+        <h2>${event.title}</h2>
+        <p>${event.description}</p>
+        <p>Date: ${event.date}</p>
+      </div>
+    `).join('');
+  }
 };
 
-export default UserEvents;
+export default UserEventController;

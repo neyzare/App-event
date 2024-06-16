@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie'; // Import js-cookie
 import dashboard from '../views/dashboard';
 
 const DashboardController = class {
@@ -17,13 +18,11 @@ const DashboardController = class {
       eventData[key] = value;
     });
 
-    const organisateurId = localStorage.getItem('user_id');
+    const organisateurId = Cookies.get('session_id');
     if (!organisateurId) {
       this.showMessage('Vous devez être connecté pour créer un événement.', 'error');
       return;
     }
-
-    eventData.organisateur_id = organisateurId;
 
     try {
       const response = await this.postEvent(eventData);
@@ -31,6 +30,7 @@ const DashboardController = class {
         event.target.reset();
         this.showMessage('Événement créé avec succès', 'success');
         this.fetchUserEvents(); // Mise à jour des événements affichés après la création
+        window.location.href = '/';
       }
     } catch (error) {
       this.showMessage(`Erreur : ${error.response ? error.response.data : error.message}`, 'error');
@@ -46,7 +46,7 @@ const DashboardController = class {
   }
 
   async fetchUserEvents() {
-    const userId = localStorage.getItem('user_id');
+    const userId = Cookies.get('session_id');
 
     try {
       const response = await axios.get(`http://localhost/user-events/${userId}`);
