@@ -31,10 +31,8 @@ const LoginController = class {
       }
     } catch (error) {
       if (error.response) {
-        this.showMessage(`Erreur de connexion : ${error.response.data.message}`, 'error');
-      } else {
-        this.showMessage(`Erreur de connexion : ${error.message}`, 'error');
-      }
+        console.log(error)
+      } 
     }
   }
 
@@ -51,7 +49,6 @@ const LoginController = class {
       const response = await this.postRegister(registerData);
       if (response.status === 200) {
         event.target.reset();
-        this.showMessage('Inscription réussie', 'success');
       }
     } catch (error) {
       this.showMessage(`Erreur d'inscription : ${error.message}`, 'error');
@@ -102,16 +99,6 @@ const LoginController = class {
     window.location.href = '/login';
     this.showMessage('Déconnexion réussie', 'success');
     this.render();
-  }
-
-  showMessage(message, type) {
-    const messageContainer = document.createElement('div');
-    messageContainer.className = `message ${type}`;
-    messageContainer.textContent = message;
-    this.el.appendChild(messageContainer);
-    setTimeout(() => {
-      messageContainer.remove();
-    }, 3000);
   }
 
   render() {
